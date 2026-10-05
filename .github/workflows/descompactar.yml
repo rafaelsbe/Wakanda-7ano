@@ -1,0 +1,20 @@
+name: Descompactar projeto
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          unzip -q wakanda-7ano-refinado.zip
+          cp -a wakanda-7ano/. .
+          rm -rf wakanda-7ano wakanda-7ano-refinado.zip
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Landing page WAKANDA 7º ano"
+          git push
